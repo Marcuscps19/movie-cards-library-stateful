@@ -23,36 +23,73 @@ class MovieLibrary extends Component {
 
   onSearchTextChange({ target }) {
     const { value } = target;
-    const { movies } = this.props;
-    this.setState({
+    this.setState((state) => ({
+      ...state,
       searchText: value,
-      movies: movies.filter((movie) => {
-        const title = movie.title.toLowerCase();
-        const subtitle = movie.subtitle.toLowerCase();
-        const storyline = movie.storyline.toLowerCase();
-        return title.includes(value.toLowerCase())
-        || subtitle.includes(value.toLowerCase())
-        || storyline.includes(value.toLowerCase());
-      }),
-    });
+    }), () => this.filterMovies());
   }
 
   onBookmarkedChange({ target }) {
     const { checked } = target;
-    const { movies } = this.props;
-    this.setState(() => ({
+    console.log(checked);
+    this.setState((state) => ({
+      ...state,
       bookmarkedOnly: checked,
-      movies: movies.filter((movie) => (checked ? movie.bookmarked === true : movie)),
-    }));
+    }), () => this.filterMovies());
   }
 
   onSelectedGenreChange({ target }) {
     const { value } = target;
-    const { movies } = this.props;
-    this.setState({
+    this.setState((state) => ({
+      ...state,
       selectedGenre: value,
-      movies: movies.filter((movie) => (value === '' ? movie : movie.genre === value)),
-    });
+    }), () => this.filterMovies());
+  }
+
+  filterMovies() {
+    const { movies } = this.props;
+    this.setState((state) => ({
+      ...state,
+      movies: movies.filter((movie) => {
+        if (this.movieIsBookmarked(movie)
+            && this.movieHaveTextValue(movie)
+            && this.filterByGenre(movie)
+        ) {
+          return movie;
+        }
+        return false;
+      }),
+    }));
+  }
+
+  movieIsBookmarked(movie) {
+    const { bookmarked } = movie;
+    const { bookmarkedOnly } = this.state;
+
+    if (bookmarkedOnly) {
+      return bookmarked;
+    }
+    return true;
+  }
+
+  filterByGenre(movie) {
+    const genre = movie.genre.toLowerCase();
+    const { selectedGenre } = this.state;
+
+    return genre === selectedGenre.toLowerCase() || selectedGenre === '';
+  }
+
+  existSearchedTextOnMovie(text) {
+    const { searchText } = this.state;
+    return text.toLowerCase().includes(searchText.toLowerCase());
+  }
+
+  movieHaveTextValue(movie) {
+    const { title, subtitle, storyline } = movie;
+
+    return (this.existSearchedTextOnMovie(title)
+    || this.existSearchedTextOnMovie(subtitle)
+    || this.existSearchedTextOnMovie(storyline));
   }
 
   addMovie(movie) {
@@ -62,7 +99,7 @@ class MovieLibrary extends Component {
   }
 
   render() {
-    const { searchText, bookmarkedOnly, selectedGenre, movies } = this.state;
+    const { searchText, bookmarkedOnly, selectedGenre, movies: films } = this.state;
     const {
       onBookmarkedChange,
       onSearchTextChange,
@@ -71,7 +108,7 @@ class MovieLibrary extends Component {
     } = this;
     return (
       <div>
-        <h2> My awesome movie library </h2>
+
         <SearchBar
           searchText={ searchText }
           bookmarkedOnly={ bookmarkedOnly }
@@ -80,7 +117,7 @@ class MovieLibrary extends Component {
           onBookmarkedChange={ onBookmarkedChange }
           onSelectedGenreChange={ onSelectedGenreChange }
         />
-        <MovieList movies={ movies } />
+        <MovieList movies={ films } />
         <AddMovie onClick={ addMovie } />
       </div>
     );
