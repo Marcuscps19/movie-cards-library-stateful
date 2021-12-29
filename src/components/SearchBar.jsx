@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import SearchText from './SearchText';
+import SearchFavorite from './SearchFavorite';
+import SearchSelect from './SearchSelect';
 
 class SearchBar extends Component {
   render() {
@@ -13,40 +16,17 @@ class SearchBar extends Component {
     } = this.props;
     return (
       <form className="search-form" data-testid="search-bar-form">
-        <label htmlFor="search-text" data-testid="text-input-label">
-          <span>Inclui o texto:</span>
-          <input
-            data-testid="text-input"
-            name="search-text"
-            value={ searchText }
-            onChange={ onSearchTextChange }
-            type="text"
-          />
-        </label>
-        <label htmlFor="search-checkbox" data-testid="checkbox-input-label">
-          <span>Mostrar somente favoritos:</span>
-          <input
-            data-testid="checkbox-input"
-            name="search-checkbox"
-            onChange={ onBookmarkedChange }
-            type="checkbox"
-            checked={ bookmarkedOnly }
-          />
-        </label>
-        <label htmlFor="select-genre" data-testid="select-input-label">
-          <span>Filtrar por gênero:</span>
-          <select
-            data-testid="select-input"
-            name="select-genre"
-            value={ selectedGenre }
-            onChange={ onSelectedGenreChange }
-          >
-            <option data-testid="select-option" value="">Todos</option>
-            <option data-testid="select-option" value="action">Ação</option>
-            <option data-testid="select-option" value="comedy">Comédia</option>
-            <option data-testid="select-option" value="thriller">Suspense</option>
-          </select>
-        </label>
+        <h1>Procurar</h1>
+        <SearchText onChange={ onSearchTextChange } searchText={ searchText } />
+
+        <SearchFavorite
+          onChange={ onBookmarkedChange }
+          checked={ bookmarkedOnly }
+        />
+        <SearchSelect
+          onChange={ onSelectedGenreChange }
+          selected={ selectedGenre }
+        />
       </form>
     );
   }

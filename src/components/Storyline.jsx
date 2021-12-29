@@ -5,9 +5,10 @@ class Storyline extends Component {
   render() {
     const { value, onChange, children } = this.props;
     return (
-      <label htmlFor="storyline" data-testid="storyline-input-label">
+      <label className="label" htmlFor="storyline" data-testid="storyline-input-label">
         {children}
         <textarea
+          className="textarea"
           name="storyline"
           data-testid="storyline-input"
           value={ value }

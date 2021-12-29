@@ -5,9 +5,10 @@ class RatingComponent extends Component {
   render() {
     const { value, onChange, children } = this.props;
     return (
-      <label htmlFor="rating" data-testid="rating-input-label">
+      <label className="label" htmlFor="rating" data-testid="rating-input-label">
         {children}
         <input
+          className="input"
           name="rating"
           type="number"
           data-testid="rating-input"
@@ -20,7 +21,10 @@ class RatingComponent extends Component {
 }
 
 RatingComponent.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
   onChange: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

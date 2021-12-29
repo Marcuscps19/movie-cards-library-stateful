@@ -43,25 +43,27 @@ class AddMovie extends Component {
     const { title, subtitle, imagePath, storyline, rating, genre } = this.state;
     return (
       <form className="addMovie-form" data-testid="add-movie-form">
+        <h1>Adicionar novo filme</h1>
         <Title value={ title } onChange={ this.handleChange }>
-          <span>Título:</span>
+          <span className="s-text">Título:</span>
         </Title>
         <Subtitle value={ subtitle } onChange={ this.handleChange }>
-          <span>Subtítulo:</span>
+          <span className="s-text">Subtítulo:</span>
         </Subtitle>
         <Image value={ imagePath } onChange={ this.handleChange }>
-          <span>Imagem:</span>
+          <span className="s-text">Imagem:</span>
         </Image>
         <Storyline value={ storyline } onChange={ this.handleChange }>
-          <span>Sinopse:</span>
+          <span className="s-text">Sinopse:</span>
         </Storyline>
         <RatingComponent value={ rating } onChange={ this.handleChange }>
-          <span>Avaliação</span>
+          <span className="s-text">Avaliação</span>
         </RatingComponent>
         <Genre value={ genre } onChange={ this.handleChange }>
-          <span>Gênero:</span>
+          <span className="s-text">Gênero:</span>
         </Genre>
         <button
+          className="button is-primary"
           type="button"
           data-testid="send-button"
           onClick={ this.handleButton }

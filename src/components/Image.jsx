@@ -5,9 +5,10 @@ class Image extends Component {
   render() {
     const { value, onChange, children } = this.props;
     return (
-      <label htmlFor="imagePath" data-testid="image-input-label">
+      <label className="label" htmlFor="imagePath" data-testid="image-input-label">
         {children}
         <input
+          className="input"
           name="imagePath"
           type="text"
           data-testid="image-input"

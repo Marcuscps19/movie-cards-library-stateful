@@ -5,9 +5,10 @@ class Title extends Component {
   render() {
     const { value, onChange, children } = this.props;
     return (
-      <label htmlFor="title" data-testid="title-input-label">
+      <label className="label" htmlFor="title" data-testid="title-input-label">
         {children}
         <input
+          className="input"
           name="title"
           type="text"
           data-testid="title-input"
