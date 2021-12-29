@@ -2,6 +2,9 @@
 
 Este projeto foi desenvolvido durante o curso de desenvolvimento web da [Trybe](https://www.betrybe.com/).
 
+Projeto finalizado em: 06/05/2021
+Atualizado em: 29/12/2021
+
 ### Descrição:
 Biblioteca de cartões de filmes dinâmica utilizando React. Essa biblioteca é composta por:
 - Um cabeçalho;
